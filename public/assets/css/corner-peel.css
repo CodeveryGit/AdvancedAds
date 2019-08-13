@@ -1,0 +1,89 @@
+[class*="corner-peel-"] a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 22;
+}
+
+[class*="corner-peel-"] {
+    position: absolute;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 20;
+}
+
+[class*="corner-peel-"] img {
+    visibility: hidden;
+}
+
+[class*="corner-peel-"] {
+    cursor: pointer;
+}
+
+[class*="corner-peel-"]::before {
+    content: '';
+    display: block;
+    background-size: cover;
+    position: absolute;
+    z-index: 21;
+}
+
+[class*="corner-peel-"].corner-topright {
+    right: 0;
+    top: 0;
+    background-position: right top;
+}
+
+[class*="corner-peel-"].corner-topright:before {
+    right: 0;
+    top: 0;
+}
+
+[class*="corner-peel-"].corner-topleft {
+    left: 0;
+    top: 0;
+    background-position: left top;
+}
+
+[class*="corner-peel-"].corner-topleft:before {
+    left: 0;
+    top: 0;
+}
+
+[class*="corner-peel-"].corner-bottomright {
+    right: 0;
+    bottom: 0;
+    background-position: right bottom;
+}
+
+[class*="corner-peel-"].corner-bottomright:before {
+    right: 0;
+    bottom: 0;
+}
+
+[class*="corner-peel-"].corner-bottomleft {
+    left: 0;
+    bottom: 0;
+    background-position: left bottom;
+}
+
+[class*="corner-peel-"].corner-bottomleft:before {
+    left: 0;
+    bottom: 0;
+}
+
+.corner-peel-transition {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.corner-peel-transition:before {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+[class*="corner-peel-"] .advads-close-button {
+    z-index: 999999;
+}
