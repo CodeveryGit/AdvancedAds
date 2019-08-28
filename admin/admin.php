@@ -27,7 +27,6 @@ class Advanced_Ads_Corner_Admin {
 	public function __construct() {
 
 		$this->plugin = Advanced_Ads_Corner_Plugin::get_instance();
-
 		add_action( 'plugins_loaded', array( $this, 'wp_admin_plugins_loaded' ) );
 	}
 
@@ -35,17 +34,15 @@ class Advanced_Ads_Corner_Admin {
 	 * load actions and filters
 	 */
 	public function wp_admin_plugins_loaded() {
+
 		if ( ! class_exists( 'Advanced_Ads_Admin', false ) ) {
 			// show admin notice
 			add_action( 'admin_notices', array( $this, 'missing_plugin_notice' ) );
-
 			return;
 		}
 
 		// register settings
 		add_action( 'advanced-ads-settings-init', array( $this, 'settings_init' ) );
-		// add our new options using the options filter before saving
-		add_filter( 'advanced-ads-save-options', array( $this, 'save_options' ), 10, 2 );
 		// add admin scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		// content of corner placement
@@ -82,7 +79,6 @@ class Advanced_Ads_Corner_Admin {
 		};
 
 		if ( Advanced_Ads_Admin::screen_belongs_to_advanced_ads() ) {
-			wp_enqueue_style( 'advanced-ads-corner-admin-css', AACPDS_BASE_URL . 'admin/assets/css/admin.css', array(), AACPDS_VERSION );
 			wp_add_inline_style( 'advanced-ads-corner-admin-css', self::get_custom_css() );
 		}
 	}
@@ -115,58 +111,6 @@ class Advanced_Ads_Corner_Admin {
 		$admin = Advanced_Ads_Admin::get_instance();
 		$hook = $admin->plugin_screen_hook_suffix;
 		$this->settings_page_hook = $hook;
-
-		// add license key field to license section
-		add_settings_field(
-			'corner-license',
-			__( 'Corner Peel Ads', 'advanced-ads-corner' ),
-			array( $this, 'render_settings_license_callback' ),
-			'advanced-ads-settings-license-page',
-			'advanced_ads_settings_license_section'
-		);
-
-	}
-
-	/**
-	 * render license key section
-	 *
-	 * @since 1.2.0
-	 */
-	public function render_settings_license_callback() {
-		$licenses = get_option(ADVADS_SLUG . '-licenses', array());
-		$license_key = isset( $licenses['corner'] ) ? $licenses['corner'] : '';
-		$license_status = get_option( $this->plugin->options_slug . '-license-status', false );
-		$index = 'corner';
-		$plugin_name = AACPDS_PLUGIN_NAME;
-		$options_slug = $this->plugin->options_slug;
-		$plugin_url = self::PLUGIN_LINK;
-
-		// template in main plugin
-		include ADVADS_BASE_PATH . 'admin/views/setting-license.php';
-	}
-
-	/**
-	 * save options
-	 *
-	 * @since 1.0.0
-	 */
-	public function save_options( $options = array(), $ad = 0 ) {
-		// sanitize sticky options
-		$positions = array();
-
-		$options['corner']['enabled']                  = ( ! empty( $_POST['advanced_ad']['corner']['enabled'] ) ) ? absint( $_POST['advanced_ad']['corner']['enabled'] ) : 0;
-		$options['corner']['trigger']                  = ( ! empty( $_POST['advanced_ad']['corner']['trigger'] ) ) ? $_POST['advanced_ad']['corner']['trigger'] : '';
-		$options['corner']['offset']                   = ( ! empty( $_POST['advanced_ad']['corner']['offset'] ) ) ? absint( $_POST['advanced_ad']['corner']['offset'] ) : '';
-		$options['corner']['background']               = ( ! empty( $_POST['advanced_ad']['corner']['background'] ) ) ? absint( $_POST['advanced_ad']['corner']['background']) : '';
-		$options['corner']['close']['enabled']         = ( ! empty( $_POST['advanced_ad']['corner']['close']['enabled'] ) ) ? absint( $_POST['advanced_ad']['corner']['close']['enabled'] ) : '';
-		$options['corner']['close']['where']           = ( ! empty( $_POST['advanced_ad']['corner']['close']['where'] ) ) ? $_POST['advanced_ad']['corner']['close']['where'] : '';
-		$options['corner']['close']['side']            = ( ! empty( $_POST['advanced_ad']['corner']['close']['side'] ) ) ? $_POST['advanced_ad']['corner']['close']['side'] : '';
-		$options['corner']['close']['timeout_enabled'] = ( ! empty( $_POST['advanced_ad']['corner']['close']['timeout_enabled'] ) ) ? $_POST['advanced_ad']['corner']['close']['timeout_enabled'] : false;
-		$options['corner']['close']['timeout']         = ( ! empty( $_POST['advanced_ad']['corner']['close']['timeout'] ) ) ? absint( $_POST['advanced_ad']['corner']['close']['timeout'] ) : 0;
-		$options['corner']['effect']                   = ( ! empty( $_POST['advanced_ad']['corner']['effect'] ) ) ? $_POST['advanced_ad']['corner']['effect'] : 'show';
-		$options['corner']['duration']                 = ( ! empty( $_POST['advanced_ad']['corner']['duration'] ) ) ? absint( $_POST['advanced_ad']['corner']['duration'] ) : 0;
-
-		return $options;
 	}
 
 	/**
@@ -177,6 +121,7 @@ class Advanced_Ads_Corner_Admin {
 	 *
 	 */
 	public function corner_placement_content( $placement_slug, $placement ) { // admin placement content
+
 		switch ( $placement['type'] ) {
 			case 'corner' :
 			    
@@ -186,68 +131,12 @@ class Advanced_Ads_Corner_Admin {
 				}
 			    
 				$options = isset( $placement['options']['corner_placement'] ) ? $placement['options']['corner_placement'] : array();
+
 				$option_name = "advads[placements][$placement_slug][options][corner_placement]";
-			    
-				// trigger
-				$trigger    = isset( $options['trigger'] ) ? $options['trigger'] : '';
-				$offset     = isset( $options['offset'] ) ? absint( $options['offset'] ) : 0;
-				$delay_sec  = isset( $options['delay_sec'] ) ? absint( $options['delay_sec'] ) : 0;
-
-				ob_start();
-				include AACPDS_BASE_PATH . '/admin/views/trigger.php';
-				$option_content = ob_get_clean();
-				
-				Advanced_Ads_Admin_Options::render_option( 
-					'placement-corner-trigger',
-					__( 'show the ad', 'advanced-ads-corner' ),
-					$option_content );
-				
-				// effect
-				$effect     = isset( $options['effect'] ) ? $options['effect'] : 'show';
-				$duration   = isset( $options['duration'] ) ? absint( $options['duration'] ) : 0;
-
-				ob_start();
-				include AACPDS_BASE_PATH . '/admin/views/effects.php';
-				$option_content = ob_get_clean();
-				
-				Advanced_Ads_Admin_Options::render_option( 
-					'placement-corner-effect',
-					__( 'effect', 'advanced-ads-corner' ),
-					$option_content );				
-
-				// auto close
-				ob_start();
-				include AACPDS_BASE_PATH . '/admin/views/auto_close.php';
-				$option_content = ob_get_clean();
-
-				Advanced_Ads_Admin_Options::render_option(
-					'placement-corner-auto-close',
-					__( 'auto close', 'advanced-ads-corner' ),
-					$option_content );
-
-				// close button
-				ob_start();
-				include AACPDS_BASE_PATH . '/admin/views/close-button.php';
-				$option_content = ob_get_clean();
-				
-				Advanced_Ads_Admin_Options::render_option( 
-					'placement-corner-trigger',
-					__( 'close button', 'advanced-ads-corner' ),
-					$option_content );
-				
-				// position on the screen
-				ob_start();
-				include AACPDS_BASE_PATH . '/admin/views/position.php';
-				$option_content = ob_get_clean();
-				
-				Advanced_Ads_Admin_Options::render_option( 
-					'placement-corner-trigger',
-					__( 'Position', 'advanced-ads-corner' ),
-					$option_content );
 
 				// Ad start size
-				$width = isset( $placement['options']['start_width'] ) ? absint( $placement['options']['start_width'] ) : 58;
-				$height = isset( $placement['options']['start_height'] ) ? absint( $placement['options']['start_height'] ) : 58;
+				$width = isset( $options['start_width'] ) ? absint( $options['start_width'] ) : 58;
+				$height = isset( $options['start_height'] ) ? absint( $options['start_height'] ) : 58;
 
 				ob_start();
 				include AACPDS_BASE_PATH . '/admin/views/size.php';
@@ -258,16 +147,75 @@ class Advanced_Ads_Corner_Admin {
 					__( 'Start size', 'advanced-ads-corner' ),
 					$option_content );
 
-				// Cover background
-				$cover_background = isset( $placement['options']['cover_background'] ) ? $placement['options']['cover_background'] : '';
+				// Ad full size
+				$full_width = isset( $options['full_width'] ) ? absint( $options['full_width'] ) : '';
+				$full_height = isset( $options['full_height'] ) ? absint( $options['full_height'] ) : '';
 
 				ob_start();
-				include AACPDS_BASE_PATH . '/admin/views/cover-background.php';
+				include AACPDS_BASE_PATH . '/admin/views/full-size.php';
 				$option_content = ob_get_clean();
 
 				Advanced_Ads_Admin_Options::render_option(
-					'placement-corner-cover-background',
-					__( 'Cover background', 'advanced-ads-corner' ),
+					'placement-corner-full-size',
+					__( 'Full size', 'advanced-ads-corner' ),
+					$option_content );
+
+				// Peel color
+				$peel_color = isset( $options['peel_color'] ) ? $options['peel_color'] : '';
+
+				ob_start();
+				include AACPDS_BASE_PATH . '/admin/views/peel-color.php';
+				$option_content = ob_get_clean();
+
+				Advanced_Ads_Admin_Options::render_option(
+					'placement-corner-peel-color',
+					__( 'Corner Peel color', 'advanced-ads-corner' ),
+					$option_content );
+
+				// how to show
+				$how_to_show = isset( $options['how_to_show'] ) ? $options['how_to_show'] : 'triangle';
+
+				ob_start();
+				include AACPDS_BASE_PATH . '/admin/views/how-to-show.php';
+				$option_content = ob_get_clean();
+
+				Advanced_Ads_Admin_Options::render_option(
+					'placement-corner-how-to-show',
+					__( 'How to show', 'advanced-ads-corner' ),
+					$option_content );
+
+				// disable when
+				$disable_when = isset( $options['disable_when'] ) ? $options['disable_when'] : 768;
+
+				ob_start();
+				include AACPDS_BASE_PATH . '/admin/views/disable-when.php';
+				$option_content = ob_get_clean();
+
+				Advanced_Ads_Admin_Options::render_option(
+					'placement-corner-disable-when',
+					__( 'Disable when', 'advanced-ads-corner' ),
+					$option_content );
+
+				// close
+                $close = isset( $options['close'] ) ? $options['close'] : 'never';
+
+				ob_start();
+				include AACPDS_BASE_PATH . '/admin/views/close.php';
+				$option_content = ob_get_clean();
+				
+				Advanced_Ads_Admin_Options::render_option( 
+					'placement-corner-close',
+					__( 'When to close', 'advanced-ads-corner' ),
+					$option_content );
+				
+				// position on the screen
+				ob_start();
+				include AACPDS_BASE_PATH . '/admin/views/position.php';
+				$option_content = ob_get_clean();
+				
+				Advanced_Ads_Admin_Options::render_option( 
+					'placement-corner-position',
+					__( 'Position', 'advanced-ads-corner' ),
 					$option_content );
 			break;
 		}
@@ -300,11 +248,10 @@ class Advanced_Ads_Corner_Admin {
 	// Enqueue add media scripts
 	public function add_media_scripts() {
 		if( is_admin() && isset($_GET['page']) && $_GET['page'] == 'advanced-ads-placements' ) {
-			wp_enqueue_media('media-upload');
-			wp_enqueue_media('thickbox');
-			wp_register_script('add-media', AACPDS_BASE_URL.'admin/assets/js/upload-media.js', array('jquery','media-upload','thickbox'));
-			wp_enqueue_script('add-media');
-			wp_enqueue_style('thickbox');
+			wp_enqueue_script( 'wp-color-picker' );
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_register_script('corner-color-picker', AACPDS_BASE_URL.'admin/assets/js/colorpicker.js', array('jquery'));
+			wp_enqueue_script('corner-color-picker');
         }
 	}
 }

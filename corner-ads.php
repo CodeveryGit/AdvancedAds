@@ -18,8 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// only load if not already existing (maybe within another plugin I created)
-if ( ! class_exists('Advanced_Ads_Corner') ) {
+if ( ! class_exists('Advanced_Ads_Corner')  ) {
 
 	// load basic path and url to the plugin
 	define( 'AACPDS_BASE_PATH', plugin_dir_path(__FILE__) );

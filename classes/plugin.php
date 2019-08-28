@@ -118,4 +118,3 @@ class Advanced_Ads_Corner_Plugin {
 	}
 
 }
-

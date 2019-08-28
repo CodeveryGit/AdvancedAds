@@ -25,7 +25,6 @@
 [class*="corner-peel-"]::before {
     content: '';
     display: block;
-    background-size: cover;
     position: absolute;
     z-index: 21;
 }
@@ -36,20 +35,10 @@
     background-position: right top;
 }
 
-[class*="corner-peel-"].corner-topright:before {
-    right: 0;
-    top: 0;
-}
-
 [class*="corner-peel-"].corner-topleft {
     left: 0;
     top: 0;
     background-position: left top;
-}
-
-[class*="corner-peel-"].corner-topleft:before {
-    left: 0;
-    top: 0;
 }
 
 [class*="corner-peel-"].corner-bottomright {
@@ -58,32 +47,26 @@
     background-position: right bottom;
 }
 
-[class*="corner-peel-"].corner-bottomright:before {
-    right: 0;
-    bottom: 0;
-}
-
 [class*="corner-peel-"].corner-bottomleft {
     left: 0;
     bottom: 0;
     background-position: left bottom;
 }
 
-[class*="corner-peel-"].corner-bottomleft:before {
-    left: 0;
-    bottom: 0;
-}
-
-.corner-peel-transition {
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-}
-
-.corner-peel-transition:before {
+.corner-peel-transition, .corner-peel-transition::before {
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
 
 [class*="corner-peel-"] .advads-close-button {
     z-index: 999999;
+}
+
+.corner-peel-hide, .corner-peel-hide::before {
+    width: 0!important;
+    height: 0!important;
+}
+
+.corner-peel-hide-triangle:hover::before {
+    opacity: 0;
 }
