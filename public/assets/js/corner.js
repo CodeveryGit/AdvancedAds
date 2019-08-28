@@ -13,7 +13,6 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
 
             for ( var i = 0; i < _bufferedAds.length; i++ ) {
                 this._process_item( jQuery( _bufferedAds[i] ) );
-
             }
         },
 
@@ -21,9 +20,7 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
             var banner_id = banner.attr('id');
             advads_corner_items.conditions[banner_id] = advads_corner_items.conditions[banner_id] || {};
 
-            // display onload ad right away
             if (banner.hasClass(Advanced_Ads_Corner_settings.corner_class + '-onload')) {
-                advads_corner_items.conditions[banner_id].scrolloffset = true;
                 advads_corner_check_item_conditions(banner_id);
             }
 
@@ -32,7 +29,7 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
             if (imgSrc) {
                 banner.css({backgroundImage: 'url("'+imgSrc+'")'});
             }
-            
+
             if (jQuery(banner).hasClass('advads-corner-close-opened')) {
 
                 jQuery(banner).hover(function () {
@@ -95,26 +92,17 @@ jQuery(document).ready(function ($) {
 /**
  * check item conditions and display the ad if all conditions are true
  *
- * @param {string} id id of the ad, without #
+ * @param {string} id of the ad, without #
  * @returns {bool} true, if item can be displayed
  */
 function advads_corner_check_item_conditions(id) {
+
     var item = jQuery('#' + id);
     if (item.length == 0) {
         return;
     }
 
-    var display = true;
-    jQuery.each(advads_corner_items.conditions[id], function (method, flag) {
-        if (flag === false) {
-            // display the banner
-            display = false;
-        }
-    });
-
-    if ( display ) {
-        advads_corner_items.showed.push(id);
-        var ad = jQuery('#' + id);
-        ad.show();
-    }
+    advads_corner_items.showed.push(id);
+    var ad = jQuery('#' + id);
+    ad.show();
 }
