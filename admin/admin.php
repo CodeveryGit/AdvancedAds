@@ -79,20 +79,8 @@ class Advanced_Ads_Corner_Admin {
 		};
 
 		if ( Advanced_Ads_Admin::screen_belongs_to_advanced_ads() ) {
-			wp_add_inline_style( 'advanced-ads-corner-admin-css', self::get_custom_css() );
+		    wp_enqueue_style( 'advanced-ads-corner-admin-css', AACPDS_BASE_URL . 'admin/assets/css/admin.css', array(), AAPLDS_VERSION );
 		}
-	}
-	
-	/**
-	 * creates the css containing the corner placement styles
-	 *
-	 * @since 1.6.3
-	 */
-	static final function get_custom_css(){
-		$corner_class = Advanced_Ads_Corner::get_corner_class();
-		$css = ".$corner_class-aa-position div.clear { content: ' '; display: block; float: none; clear: both; }\n";
-		$css.= ".advads-placements-table .$corner_class-aa-position .advads-sticky-assistant table tbody tr td { width: 3em; height: 2em; text-align: center; vertical-align: middle; padding: 0; }\n";
-		return $css;
 	}
 
 	/**

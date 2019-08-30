@@ -45,6 +45,8 @@ class Advanced_Ads_Corner {
 		add_filter( 'advanced-ads-output-wrapper-options', array( $this, 'add_wrapper_options' ), 21, 2 );
 		// add wrapper options, group
 		add_filter( 'advanced-ads-output-wrapper-options-group', array( $this, 'add_wrapper_options_group' ), 10, 2 );
+		// check if current placement can be displayed at all (after Sticky Ad plugin)
+		add_filter( 'advanced-ads-can-display-placement', array( $this, 'placement_can_display' ), 11, 2 );
 	}
 
 	/**
@@ -161,6 +163,8 @@ class Advanced_Ads_Corner {
 			$options['data-width'][] = $full_width;
 			$options['data-height'][] = $full_height;
 
+			$options['data-id'] = $args['previous_id'];
+
 			$options['class'][] = $corner_class . '-onload';
 
 			if ( $args['corner_placement']['how_to_show'] == 'rectangle' ) $options['class'][] = 'advads-corner-show-in-rectangle';
@@ -211,20 +215,22 @@ class Advanced_Ads_Corner {
 	 * 
 	 * @param array $wrapper
 	 * @param $ad
-	 * @return arr
+	 * @return array
 	 */
 	public function corner_css($wrapper = array(), $ad) {
 
-		$args = $ad->args;
-		$start_width = isset($args['corner_placement']['start_width']) && $args['corner_placement']['start_width'] != '' ? $args['corner_placement']['start_width'] : 58;
-		$start_height = isset($args['corner_placement']['start_height']) && $args['corner_placement']['start_height'] != '' ? $args['corner_placement']['start_height'] : 58;
-		$full_width = isset($args['corner_placement']['full_width']) && $args['corner_placement']['full_width'] != '' ? $args['corner_placement']['full_width'] : $ad->width;
-		$full_height = isset($args['corner_placement']['full_height']) && $args['corner_placement']['full_height'] != '' ? $args['corner_placement']['full_height'] : $ad->height;
-		$placement_id = isset($args['previous_id']) && $args['previous_id'] != '' ? $args['previous_id'] : '';
-		$peel_color = isset($args['corner_placement']['peel_color']) && $args['corner_placement']['peel_color'] != '' ? $args['corner_placement']['peel_color']: '#5d5d5d';
-		$disable_when = isset($args['corner_placement']['disable_when']) && $args['corner_placement']['disable_when'] != '' ? $args['corner_placement']['disable_when']: 768;
+		if (!is_admin()) {
 
-		$style = '<style type="text/css">
+			$args = $ad->args;
+			$start_width = isset($args['corner_placement']['start_width']) && $args['corner_placement']['start_width'] != '' ? $args['corner_placement']['start_width'] : 58;
+			$start_height = isset($args['corner_placement']['start_height']) && $args['corner_placement']['start_height'] != '' ? $args['corner_placement']['start_height'] : 58;
+			$full_width = isset($args['corner_placement']['full_width']) && $args['corner_placement']['full_width'] != '' && $args['corner_placement']['full_width'] != 0 ? $args['corner_placement']['full_width'] : $ad->width;
+			$full_height = isset($args['corner_placement']['full_height']) && $args['corner_placement']['full_height'] != '' && $args['corner_placement']['full_height'] != 0 ? $args['corner_placement']['full_height'] : $ad->height;
+			$placement_id = isset($args['previous_id']) && $args['previous_id'] != '' ? $args['previous_id'] : '';
+			$peel_color = isset($args['corner_placement']['peel_color']) && $args['corner_placement']['peel_color'] != '' ? $args['corner_placement']['peel_color']: '#5d5d5d';
+			$disable_when = isset($args['corner_placement']['disable_when']) && $args['corner_placement']['disable_when'] != '' ? $args['corner_placement']['disable_when']: 768;
+
+			$style = '<style type="text/css">
 					@media screen and (min-width: '.$disable_when.'px) {
 					.corner-peel-'.$placement_id.' {
 					  width: '.$start_width.'px;
@@ -248,7 +254,10 @@ class Advanced_Ads_Corner {
 						background: linear-gradient(to top right, transparent 0%, transparent 50%, '.$peel_color.' 50%, '.$peel_color.' 100%); }
 					}
 				  </style>';
-		echo $style;
+
+			echo $style;
+		}
+
 		return $wrapper;
 	}
 
@@ -276,7 +285,8 @@ class Advanced_Ads_Corner {
 
 		wp_enqueue_script( 'advanced-ads-corner-footer-js', AACPDS_BASE_URL . 'public/assets/js/corner.js', $deps, AACPDS_VERSION, true );
 		wp_localize_script( 'advanced-ads-corner-footer-js', 'Advanced_Ads_Corner_settings', array(
-		    'corner_class' => $this->get_corner_class()
+		    'corner_class' => $this->get_corner_class(),
+			'ajax_url' => admin_url( 'admin-ajax.php' )
 		) );
 	}
 
@@ -296,5 +306,26 @@ class Advanced_Ads_Corner {
 	 */
 	public static final function get_corner_class(){
 	    return Advanced_Ads_Plugin::get_instance()->get_frontend_prefix() . "corner";
+	}
+
+	/**
+	 * check if placement was closed with a cookie before
+	 *
+	 * @param int $id placement id
+	 * @return bool whether placement can be displayed or not
+	 * @return bool false if placement was closed for this user
+	 */
+	public function placement_can_display( $return, $id = 0 ) {
+		// get all placements
+		$placements = Advanced_Ads::get_ad_placements_array();
+
+		if ( isset( $placements[ $id ]['options']['corner_placement']['close'] ) && $placements[ $id ]['options']['corner_placement']['close'] != 'never' ) {
+			$slug = sanitize_title( $placements[ $id ]['name'] );
+			if ( isset( $_COOKIE[ 'timeout_placement_' . $slug ] ) ) {
+				return false;
+			}
+		}
+
+		return $return;
 	}
 }

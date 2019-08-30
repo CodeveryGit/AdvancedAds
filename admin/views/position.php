@@ -35,23 +35,8 @@
 						<td><input type="radio" name="<?php echo $option_name; ?>[assistant]" title="<?php _e( 'bottom right', 'advanced-ads-corner' ); ?>" value="bottomright" <?php checked( $assistant, 'bottomright' ); ?>/></td>
 					</tr>
 				</table>
-
-				
-				<div <?php if ( ( ! $width && ! $height )  ): ?> style="display:none;" <?php endif; ?>>
-					<br/>
-					<p class="advads-error-message"><?php _e( 'These settings are deprecated. Please, set width and height for the ad itself.', 'advanced-ads-corner' ); ?></p>
-					<p class="description"><?php _e( 'Enter banner width and height to correctly center the ad.', 'advanced-ads-corner' ); ?></p>
-					<label><?php _e( 'banner width', 'advanced-ads-corner' ); ?>
-						<input type="number" name="<?php echo $option_name; ?>[position][width]" title="<?php _e( 'banner width', 'advanced-ads-corner' ); ?>" value="<?php echo $width; ?>"/>px
-					</label>, 
-					<label><?php _e( 'banner height', 'advanced-ads-corner' ); ?>
-						<input type="number" name="<?php echo $option_name; ?>[position][height]" title="<?php _e( 'banner height', 'advanced-ads-corner' ); ?>" value="<?php echo $height; ?>"/>px
-					</label>
-				</div>
-
 			</div>
 			<p class="description"><?php _e( 'Choose a position on the screen.', 'advanced-ads-corner' ); ?></p>
-
 		</div>
 
 		<div class='clear'></div>

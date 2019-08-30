@@ -17,7 +17,11 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
         },
 
         _process_item: function( banner ) {
-            var banner_id = banner.attr('id');
+            var banner_id = banner.attr('id'),
+                name = 'timeout_placement_' + jQuery(banner).data('id'),
+                value = '1',
+                days = 1;
+
             advads_corner_items.conditions[banner_id] = advads_corner_items.conditions[banner_id] || {};
 
             if (banner.hasClass(Advanced_Ads_Corner_settings.corner_class + '-onload')) {
@@ -31,12 +35,15 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
             }
 
             if (jQuery(banner).hasClass('advads-corner-close-opened')) {
+                console.log(jQuery(banner));
 
                 jQuery(banner).hover(function () {
 
                 }, function () {
                     jQuery(this).addClass('corner-peel-hide');
                     jQuery(this).fadeOut(500, function() { jQuery(this).remove(); });
+
+                    createCookie(name,value,days);
                 });
             }
 
@@ -45,6 +52,8 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
                 jQuery(banner).click(function () {
                     jQuery(this).addClass('corner-peel-hide');
                     jQuery(this).fadeOut(500, function() { jQuery(this).remove(); });
+
+                    createCookie(name,value,days);
                 });
             }
 
@@ -105,4 +114,17 @@ function advads_corner_check_item_conditions(id) {
     advads_corner_items.showed.push(id);
     var ad = jQuery('#' + id);
     ad.show();
+}
+
+function createCookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
 }

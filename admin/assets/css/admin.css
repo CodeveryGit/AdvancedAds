@@ -1,0 +1,13 @@
+.advads-placements-table .advads-option-placement-corner-position div.clear {
+    content: ' ';
+    display: block;
+    float: none;
+    clear: both;
+}
+.advads-placements-table .advads-option-placement-corner-position table tbody tr td {
+    width: 3em;
+    height: 2em;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+}

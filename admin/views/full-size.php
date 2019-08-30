@@ -8,3 +8,4 @@
     echo $placement_slug; ?>][options][corner_placement][full_height]"> px</label>
 </p>
 <p class="description"><?php _e( "Ad size when it's hovered", 'advanced-ads-corner' ); ?></p>
+<p class="description"><?php _e( "Leave empty or 0 to use Ad initial size", 'advanced-ads-corner' ); ?></p>
