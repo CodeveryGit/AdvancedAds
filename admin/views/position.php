@@ -1,12 +1,6 @@
 <?php
 	$options = isset( $placement['options']['corner_placement']['sticky'] ) ? $placement['options']['corner_placement']['sticky'] : array();
-
-	$enabled   = isset( $options['enabled'] ) ? $options['enabled'] : false;
 	$assistant = isset( $options['assistant'] ) ? $options['assistant'] : 'topright';
-	$type      = isset( $options['type'] ) ? $options['type'] : 'assistant';
-	$width     = isset( $options['position']['width'] ) ? absint( $options['position']['width'] ) : 0;
-	$height    = isset( $options['position']['height'] ) ? absint( $options['position']['height'] ) : 0;
-
 	$option_name = "advads[placements][$placement_slug][options][corner_placement][sticky]";
 	if (! isset($corner_class)){
 		$corner_class = Advanced_Ads_Corner::get_corner_class();
@@ -15,7 +9,6 @@
 
 <div>
 	<div class="<?php echo $corner_class; ?>-aa-position">
-		
 		<div class="<?php echo $corner_class; ?>-assistant-wrapper">
 			<div class="advads-sticky-assistant" id="<?php echo $corner_class; ?>-ads-type-assistant-inputs-<?php echo $placement_slug; ?>">
 				<table>
@@ -38,7 +31,6 @@
 			</div>
 			<p class="description"><?php _e( 'Choose a position on the screen.', 'advanced-ads-corner' ); ?></p>
 		</div>
-
 		<div class='clear'></div>
 	</div>
 </div>

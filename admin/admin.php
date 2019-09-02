@@ -14,15 +14,12 @@ class Advanced_Ads_Corner_Admin {
 	 * holds base class
 	 *
 	 * @var Advanced_Ads_Corner_Plugin
-	 * @since 1.2.0
 	 */
 	protected $plugin;
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
-	 *
-	 * @since 1.0.0
 	 */
 	public function __construct() {
 
@@ -70,7 +67,6 @@ class Advanced_Ads_Corner_Admin {
 	/**
 	 * add corner placement styles
 	 *
-	 * @since 1.2.4
 	 * @param type $hook_suffix
 	 */
 	function admin_scripts( $hook_suffix ) {
@@ -85,8 +81,6 @@ class Advanced_Ads_Corner_Admin {
 
 	/**
 	 * add settings to settings page
-	 *
-	 * @since 1.2.0
 	 */
 	public function settings_init() {
 
@@ -104,7 +98,6 @@ class Advanced_Ads_Corner_Admin {
 	/**
 	 * render corner placement content
 	 *
-	 * @since 1.2.4
 	 * @param string $placement_slug id of the placement
 	 *
 	 */
@@ -185,7 +178,8 @@ class Advanced_Ads_Corner_Admin {
 					$option_content );
 
 				// close
-                $close = isset( $options['close'] ) ? $options['close'] : 'never';
+                $when_to_close = isset( $options['close']['when_to'] ) ? $options['close']['when_to'] : 'never';
+				$close_for = isset( $options['close']['for_how_long'] ) ? $options['close']['for_how_long'] : 0;
 
 				ob_start();
 				include AACPDS_BASE_PATH . '/admin/views/close.php';
@@ -213,7 +207,7 @@ class Advanced_Ads_Corner_Admin {
 	 * Add a warning when an AdSense ad is assigned to the corner placement.
 	 *
 	 * @param string $_placement_slug
-	 * @param array $_placement
+	 * @param arr $_placement
 	 */
 	public function add_adsense_warning( $_placement_slug, $_placement ) {
 		if ( 'corner' !== $_placement['type'] || empty( $_placement['item'] ) ) {
@@ -238,8 +232,8 @@ class Advanced_Ads_Corner_Admin {
 		if( is_admin() && isset($_GET['page']) && $_GET['page'] == 'advanced-ads-placements' ) {
 			wp_enqueue_script( 'wp-color-picker' );
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_register_script('corner-color-picker', AACPDS_BASE_URL.'admin/assets/js/colorpicker.js', array('jquery'));
-			wp_enqueue_script('corner-color-picker');
+			wp_register_script('corner-admin', AACPDS_BASE_URL.'admin/assets/js/admin.js', array('jquery'));
+			wp_enqueue_script('corner-admin');
         }
 	}
 }

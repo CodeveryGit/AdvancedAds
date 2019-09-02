@@ -2,14 +2,11 @@
 
 /*
  * load common and WordPress based resources
- *
- * @since 1.2.0
  */
 
 class Advanced_Ads_Corner_Plugin {
 
 	/**
-	 *
 	 * @var Advanced_Ads_Corner_Plugin
 	 */
 	protected static $instance;
@@ -33,7 +30,6 @@ class Advanced_Ads_Corner_Plugin {
 	}
 
 	/**
-	 *
 	 * @return Advanced_Ads_Corner_Plugin
 	 */
 	public static function get_instance() {
@@ -60,22 +56,15 @@ class Advanced_Ads_Corner_Plugin {
 
 		$this->options_slug =  ADVADS_SLUG . '-corner';
 
-		// register plugin for auto updates
-	    if ( is_admin() ) {
-		    add_filter( 'advanced-ads-add-ons', array( $this, 'register_auto_updater' ), 10 );
-		}
-
 		// force advanced js to be activated
 		add_filter( 'advanced-ads-activate-advanced-js', array( $this, 'force_advanced_js' ) );
 	}
 	
 	/**
 	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.3.1.1
 	 */
 	public function load_plugin_textdomain() {
-	       load_plugin_textdomain( AACPDS_SLUG, false, AACPDS_BASE_DIR . '/languages' );
+	       load_plugin_textdomain( 'advanced-ads-corner', false, AACPDS_BASE_DIR . '/languages' );
 	}
 
 	/**
@@ -88,23 +77,6 @@ class Advanced_Ads_Corner_Plugin {
 		}
 
 		return Advanced_Ads::get_instance()->options();
-	}
-
-	/**
-	 * register plugin for the auto updater in the base plugin
-	 *
-	 * @param arr $plugins plugin that are already registered for auto updates
-	 * @return arr $plugins
-	 */
-	public function register_auto_updater( array $plugins = array() ) {
-
-		$plugins['corner'] = array(
-			'name' => AACPDS_PLUGIN_NAME,
-			'version' => AACPDS_VERSION,
-			'path' => AACPDS_BASE_PATH . 'corner-ads.php',
-			'options_slug' => $this->options_slug,
-		);
-		return $plugins;
 	}
 
 	/**

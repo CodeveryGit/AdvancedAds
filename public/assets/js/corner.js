@@ -17,10 +17,13 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
         },
 
         _process_item: function( banner ) {
+
+            jQuery('<div class="corner-peel-shadow"></div>').insertAfter(banner);
+
             var banner_id = banner.attr('id'),
                 name = 'timeout_placement_' + jQuery(banner).data('id'),
                 value = '1',
-                days = 1;
+                days = jQuery(banner).data('close_for');
 
             advads_corner_items.conditions[banner_id] = advads_corner_items.conditions[banner_id] || {};
 
@@ -35,7 +38,6 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
             }
 
             if (jQuery(banner).hasClass('advads-corner-close-opened')) {
-                console.log(jQuery(banner));
 
                 jQuery(banner).hover(function () {
 

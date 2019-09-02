@@ -6,7 +6,6 @@ class Advanced_Ads_Corner {
 	 * holds plugin base class
 	 *
 	 * @var Advanced_Ads_Corner_Plugin
-	 * @since 1.2.4
 	 */
 	protected $plugin;
 
@@ -14,7 +13,6 @@ class Advanced_Ads_Corner {
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since 1.0.0
 	 */
 	public function __construct( $is_admin, $is_ajax ) {
 
@@ -69,7 +67,6 @@ class Advanced_Ads_Corner {
 	/**
 	 * add corner placement to list of placements (on placement page, but also for all AXAX calls)
 	 *
-	 * @since 1.2.4
 	 * @param arr $types existing placements
 	 * @return arr $types
 	 */
@@ -88,7 +85,6 @@ class Advanced_Ads_Corner {
 	/**
 	 * inject ad placement into footer
 	 *
-	 * @since 1.2.4
 	 */
 	public function footer_injection() {
 
@@ -108,7 +104,6 @@ class Advanced_Ads_Corner {
 	/**
 	 * add sticky attributes to wrapper
 	 *
-	 * @since 1.2.4
 	 * @param arr $options
 	 * @param obj $ad ad object
 	 */
@@ -126,7 +121,6 @@ class Advanced_Ads_Corner {
 	/**
 	 * Add sticky attributes to group wrapper.
 	 *
-	 * @since untagged
 	 * @param arr $options Existing attributes.
 	 * @param obj $group Advanced_Ads_Group.
 	 */
@@ -144,7 +138,6 @@ class Advanced_Ads_Corner {
 	/**
 	 * Get wrapper attributes.
 	 *
-	 * @since untagged
 	 * @param arr $options Existing attributes.
 	 * @param arr $args Arguments passed to ads.
 	 * @param int $width Width of the wrapper.
@@ -164,13 +157,14 @@ class Advanced_Ads_Corner {
 			$options['data-height'][] = $full_height;
 
 			$options['data-id'] = $args['previous_id'];
+			$options['data-close_for'] = isset($args['corner_placement']['close']['for_how_long']) ? $args['corner_placement']['close']['for_how_long'] : '';
 
 			$options['class'][] = $corner_class . '-onload';
 
 			if ( $args['corner_placement']['how_to_show'] == 'rectangle' ) $options['class'][] = 'advads-corner-show-in-rectangle';
 
-			if ( $args['corner_placement']['close'] == 'opened' ) $options['class'][] = 'advads-corner-close-opened';
-			elseif ($args['corner_placement']['close'] == 'clicked') $options['class'][] = 'advads-corner-close-clicked';
+			if ( isset($args['corner_placement']['close']['when_to']) && $args['corner_placement']['close']['when_to'] == 'opened' ) $options['class'][] = 'advads-corner-close-opened';
+			elseif ( isset($args['corner_placement']['close']['when_to']) && $args['corner_placement']['close']['when_to'] == 'clicked') $options['class'][] = 'advads-corner-close-clicked';
 			else $options['class'][] = 'advads-corner-close-never';
 
 			$is_assistant = ! empty( $args['corner_placement']['sticky']['assistant'] );
@@ -213,9 +207,9 @@ class Advanced_Ads_Corner {
 	/**
 	 * Add corner placement args to css
 	 * 
-	 * @param array $wrapper
+	 * @param arr $wrapper
 	 * @param $ad
-	 * @return array
+	 * @return arr
 	 */
 	public function corner_css($wrapper = array(), $ad) {
 
@@ -232,7 +226,7 @@ class Advanced_Ads_Corner {
 
 			$style = '<style type="text/css">
 					@media screen and (min-width: '.$disable_when.'px) {
-					.corner-peel-'.$placement_id.' {
+					.corner-peel-'.$placement_id.', .corner-peel-'.$placement_id.' + .corner-peel-shadow {
 					  width: '.$start_width.'px;
 					  height: '.$start_height.'px; }
 					.corner-peel-'.$placement_id.'::before {
@@ -241,6 +235,9 @@ class Advanced_Ads_Corner {
 					.corner-peel-'.$placement_id.':hover {
 					  width: '.$full_width.'px;
 				  	  height: '.$full_height.'px; }
+					.corner-peel-'.$placement_id.':hover + .corner-peel-shadow {
+					  width: '.($full_width + $full_width*0.05).'px;
+					  height: '.($full_height + $full_height*0.05).'px; }
 					.corner-peel-'.$placement_id.':hover::before {
 					  width: '.$full_width.'px;
 				  	  height: '.$full_height.'px; }
@@ -264,7 +261,6 @@ class Advanced_Ads_Corner {
 	/**
 	 * append js file in footer
 	 *
-	 * @since 1.0.0
 	 */
 	public function footer_scripts() {
 
@@ -319,7 +315,7 @@ class Advanced_Ads_Corner {
 		// get all placements
 		$placements = Advanced_Ads::get_ad_placements_array();
 
-		if ( isset( $placements[ $id ]['options']['corner_placement']['close'] ) && $placements[ $id ]['options']['corner_placement']['close'] != 'never' ) {
+		if ( isset( $placements[ $id ]['options']['corner_placement']['close']['when_to'] ) && $placements[ $id ]['options']['corner_placement']['close']['when_to'] != 'never' ) {
 			$slug = sanitize_title( $placements[ $id ]['name'] );
 			if ( isset( $_COOKIE[ 'timeout_placement_' . $slug ] ) ) {
 				return false;

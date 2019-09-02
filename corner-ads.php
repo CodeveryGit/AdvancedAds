@@ -4,10 +4,10 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Advanced Ads – Corner Peel Ads
- * Plugin URI:        https://wpadvancedads.com/add-ons/corner-peel-ads/
+ * Plugin URI:
  * Description:       Create Corner Peel Ads
- * Version:           1.6.4
- * Author:
+ * Version:           1
+ * Author:			  Alex
  * Author URI:
  * Text Domain:       advanced-ads-corner
  * Domain Path:       /languages
@@ -24,7 +24,6 @@ if ( ! class_exists('Advanced_Ads_Corner')  ) {
 	define( 'AACPDS_BASE_PATH', plugin_dir_path(__FILE__) );
 	define( 'AACPDS_BASE_URL', plugin_dir_url(__FILE__) );
 	define( 'AACPDS_BASE_DIR', dirname( plugin_basename( __FILE__ ) ) ); // directory of the plugin without any paths
-	define( 'AACPDS_SLUG', 'advanced-ads-corner');
 
 	define( 'AACPDS_VERSION', '1.0' );
 	define( 'AACPDS_PLUGIN_URL', 'https://wpadvancedads.com' );
