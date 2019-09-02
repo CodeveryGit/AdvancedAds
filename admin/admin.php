@@ -46,8 +46,6 @@ class Advanced_Ads_Corner_Admin {
 		add_action( 'advanced-ads-placement-options-after-advanced', array( $this, 'corner_placement_content' ), 10, 2 );
 		// add AdSense warning
 		add_action( 'advanced-ads-placement-options-after', array( $this, 'add_adsense_warning' ), 5, 2 );
-        // enqueue add media scripts
-		add_action('admin_enqueue_scripts', array( $this, 'add_media_scripts'));
 	}
 
 	/**
@@ -76,6 +74,14 @@ class Advanced_Ads_Corner_Admin {
 
 		if ( Advanced_Ads_Admin::screen_belongs_to_advanced_ads() ) {
 		    wp_enqueue_style( 'advanced-ads-corner-admin-css', AACPDS_BASE_URL . 'admin/assets/css/admin.css', array(), AAPLDS_VERSION );
+		}
+
+		// corner peel placement admin scripts
+		if( is_admin() && isset($_GET['page']) && $_GET['page'] == 'advanced-ads-placements' ) {
+			wp_enqueue_script( 'wp-color-picker' );
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_register_script('corner-admin', AACPDS_BASE_URL.'admin/assets/js/admin.js', array('jquery'));
+			wp_enqueue_script('corner-admin');
 		}
 	}
 
@@ -225,15 +231,5 @@ class Advanced_Ads_Corner_Admin {
 				<?php return;
 			}
 		}
-	}
-
-	// Enqueue add media scripts
-	public function add_media_scripts() {
-		if( is_admin() && isset($_GET['page']) && $_GET['page'] == 'advanced-ads-placements' ) {
-			wp_enqueue_script( 'wp-color-picker' );
-			wp_enqueue_style( 'wp-color-picker' );
-			wp_register_script('corner-admin', AACPDS_BASE_URL.'admin/assets/js/admin.js', array('jquery'));
-			wp_enqueue_script('corner-admin');
-        }
 	}
 }
