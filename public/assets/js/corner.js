@@ -18,7 +18,7 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
 
         _process_item: function( banner ) {
 
-            jQuery('<div class="corner-peel-shadow"></div>').insertAfter(banner);
+            jQuery('<div class="corner-shadow"></div>').insertAfter(banner);
 
             var banner_id = banner.attr('id'),
                 name = 'timeout_placement_' + jQuery(banner).data('id'),

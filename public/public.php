@@ -226,7 +226,7 @@ class Advanced_Ads_Corner {
 
 			$style = '<style type="text/css">
 					@media screen and (min-width: '.$disable_when.'px) {
-					.corner-peel-'.$placement_id.', .corner-peel-'.$placement_id.' + .corner-peel-shadow {
+					.corner-peel-'.$placement_id.', .corner-peel-'.$placement_id.' + .corner-shadow {
 					  width: '.$start_width.'px;
 					  height: '.$start_height.'px; }
 					.corner-peel-'.$placement_id.'::before {
@@ -235,20 +235,24 @@ class Advanced_Ads_Corner {
 					.corner-peel-'.$placement_id.':hover {
 					  width: '.$full_width.'px;
 				  	  height: '.$full_height.'px; }
-					.corner-peel-'.$placement_id.':hover + .corner-peel-shadow {
+					.corner-peel-'.$placement_id.':hover + .corner-shadow {
 					  width: '.($full_width + $full_width*0.05).'px;
 					  height: '.($full_height + $full_height*0.05).'px; }
 					.corner-peel-'.$placement_id.':hover::before {
 					  width: '.$full_width.'px;
 				  	  height: '.$full_height.'px; }
 				  	.corner-peel-'.$placement_id.'.corner-topright:before {
-						background: linear-gradient(to bottom left, transparent 0%, transparent 50%, '.$peel_color.' 50%, '.$peel_color.' 100%); }
+						background: '.$peel_color.';
+    					clip-path: polygon(0 0, 100% 100%, 0 100%); }
 					.corner-peel-'.$placement_id.'.corner-topleft:before {
-						background: linear-gradient(to bottom right, transparent 0%, transparent 50%, '.$peel_color.' 50%, '.$peel_color.' 100%); }
+						background: '.$peel_color.';
+    					clip-path: polygon(100% 0, 100% 100%, 0 100%); }
 					.corner-peel-'.$placement_id.'.corner-bottomright:before {
-						background: linear-gradient(to top left, transparent 0%, transparent 50%, '.$peel_color.' 50%, '.$peel_color.' 100%); }
+						background: '.$peel_color.';
+    					clip-path: polygon(0 0, 100% 0, 0 100%); }
 					.corner-peel-'.$placement_id.'.corner-bottomleft:before {
-						background: linear-gradient(to top right, transparent 0%, transparent 50%, '.$peel_color.' 50%, '.$peel_color.' 100%); }
+						background: '.$peel_color.';
+    					clip-path: polygon(0 0, 100% 0, 100% 100%); }
 					}
 				  </style>';
 

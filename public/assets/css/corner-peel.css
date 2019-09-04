@@ -69,52 +69,52 @@
 .corner-peel-hide-triangle:hover::before {
     opacity: 0;
 }
-.admin-bar [class*="corner-peel-"].corner-topright + .corner-peel-shadow,
-.admin-bar [class*="corner-peel-"].corner-topleft + .corner-peel-shadow {
+.admin-bar [class*="corner-peel-"].corner-topright + .corner-shadow,
+.admin-bar [class*="corner-peel-"].corner-topleft + .corner-shadow {
     top: 32px;
 }
-.corner-peel-shadow {
-    position: absolute;
+.corner-shadow {
+    position: fixed;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     opacity: 0;
 }
-[class*="corner-peel-"]:hover + .corner-peel-shadow {
+[class*="corner-peel-"]:hover + .corner-shadow {
     opacity: 0.3;
 }
-[class*="corner-peel-"].corner-topright + .corner-peel-shadow {
+[class*="corner-peel-"].corner-topright + .corner-shadow {
     top: 0;
     right: 0;
     clip-path: polygon(5% 0, 100% 0, 100% 95%, 5% 95%);
     background: linear-gradient(45deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
-[class*="corner-peel-"].corner-topright:hover + .corner-peel-shadow {
+[class*="corner-peel-"].corner-topright:hover + .corner-shadow {
     clip-path: polygon(5% 0, 100% 0, 100% 95%, 0 100%)!important;
 }
-[class*="corner-peel-"].corner-topleft + .corner-peel-shadow {
+[class*="corner-peel-"].corner-topleft + .corner-shadow {
     top: 0;
     left: 0;
     clip-path: polygon(0 0, 95% 0, 95% 95%, 0 95%);
     background: linear-gradient(-45deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
-[class*="corner-peel-"].corner-topleft:hover + .corner-peel-shadow {
+[class*="corner-peel-"].corner-topleft:hover + .corner-shadow {
     clip-path: polygon(0 0, 95% 0, 100% 100%, 0 95%)!important;
 }
-[class*="corner-peel-"].corner-bottomright + .corner-peel-shadow {
+[class*="corner-peel-"].corner-bottomright + .corner-shadow {
     bottom: 0;
     right: 0;
     clip-path: polygon(5% 5%, 100% 5%, 100% 100%, 5% 100%);
     background: linear-gradient(135deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
-[class*="corner-peel-"].corner-bottomright:hover + .corner-peel-shadow {
+[class*="corner-peel-"].corner-bottomright:hover + .corner-shadow {
     clip-path: polygon(0 0, 100% 5%, 100% 100%, 5% 100%)!important;
 }
-[class*="corner-peel-"].corner-bottomleft + .corner-peel-shadow {
+[class*="corner-peel-"].corner-bottomleft + .corner-shadow {
     bottom: 0;
     left: 0;
     clip-path: polygon(0 5%, 95% 5%, 95% 100%, 0 100%);
     background: linear-gradient(-135deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
-[class*="corner-peel-"].corner-bottomleft:hover + .corner-peel-shadow {
+[class*="corner-peel-"].corner-bottomleft:hover + .corner-shadow {
     clip-path: polygon(0 5%, 100% 0, 95% 100%, 0 100%)!important;
 }

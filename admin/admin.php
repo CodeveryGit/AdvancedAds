@@ -73,7 +73,7 @@ class Advanced_Ads_Corner_Admin {
 		};
 
 		if ( Advanced_Ads_Admin::screen_belongs_to_advanced_ads() ) {
-		    wp_enqueue_style( 'advanced-ads-corner-admin-css', AACPDS_BASE_URL . 'admin/assets/css/admin.css', array(), AAPLDS_VERSION );
+		    wp_enqueue_style( 'advanced-ads-corner-admin-css', AACPDS_BASE_URL . 'admin/assets/css/admin.css', array(), AACPDS_VERSION );
 		}
 
 		// corner peel placement admin scripts

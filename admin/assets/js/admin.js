@@ -3,8 +3,6 @@ jQuery(document).ready(function($){
 });
 
 jQuery(document).on('change', '.corner-close', function () {
-    console.log(jQuery(this).val());
-    console.log(jQuery(this).parents('div[id^=advads-close-]').children('.corner-close-for'));
     var close_for = jQuery(this).parents('div[id^=advads-close-]').children('.corner-close-for');
     if (jQuery(this).val() != 'never') {
         jQuery(close_for).slideDown();
