@@ -86,35 +86,43 @@
     top: 0;
     right: 0;
     clip-path: polygon(5% 0, 100% 0, 100% 95%, 5% 95%);
+    -webkit-clip-path: polygon(5% 0, 100% 0, 100% 95%, 5% 95%);
     background: linear-gradient(45deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
 [class*="corner-peel-"].corner-topright:hover + .corner-shadow {
     clip-path: polygon(5% 0, 100% 0, 100% 95%, 0 100%)!important;
+    -webkit-clip-path: polygon(5% 0, 100% 0, 100% 95%, 0 100%)!important;
 }
 [class*="corner-peel-"].corner-topleft + .corner-shadow {
     top: 0;
     left: 0;
     clip-path: polygon(0 0, 95% 0, 95% 95%, 0 95%);
+    -webkit-clip-path: polygon(0 0, 95% 0, 95% 95%, 0 95%);
     background: linear-gradient(-45deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
 [class*="corner-peel-"].corner-topleft:hover + .corner-shadow {
     clip-path: polygon(0 0, 95% 0, 100% 100%, 0 95%)!important;
+    -webkit-clip-path: polygon(0 0, 95% 0, 100% 100%, 0 95%)!important;
 }
 [class*="corner-peel-"].corner-bottomright + .corner-shadow {
     bottom: 0;
     right: 0;
     clip-path: polygon(5% 5%, 100% 5%, 100% 100%, 5% 100%);
+    -webkit-clip-path: polygon(5% 5%, 100% 5%, 100% 100%, 5% 100%);
     background: linear-gradient(135deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
 [class*="corner-peel-"].corner-bottomright:hover + .corner-shadow {
     clip-path: polygon(0 0, 100% 5%, 100% 100%, 5% 100%)!important;
+    -webkit-clip-path: polygon(0 0, 100% 5%, 100% 100%, 5% 100%)!important;
 }
 [class*="corner-peel-"].corner-bottomleft + .corner-shadow {
     bottom: 0;
     left: 0;
     clip-path: polygon(0 5%, 95% 5%, 95% 100%, 0 100%);
+    -webkit-clip-path: polygon(0 5%, 95% 5%, 95% 100%, 0 100%);
     background: linear-gradient(-135deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%);
 }
 [class*="corner-peel-"].corner-bottomleft:hover + .corner-shadow {
     clip-path: polygon(0 5%, 100% 0, 95% 100%, 0 100%)!important;
+    -webkit-clip-path: polygon(0 5%, 100% 0, 95% 100%, 0 100%)!important;
 }

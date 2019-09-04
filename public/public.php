@@ -243,16 +243,20 @@ class Advanced_Ads_Corner {
 				  	  height: '.$full_height.'px; }
 				  	.corner-peel-'.$placement_id.'.corner-topright:before {
 						background: '.$peel_color.';
-    					clip-path: polygon(0 0, 100% 100%, 0 100%); }
+    					clip-path: polygon(0 0, 100% 100%, 0 100%);
+    					-webkit-clip-path: polygon(0 0, 100% 100%, 0 100%); }
 					.corner-peel-'.$placement_id.'.corner-topleft:before {
 						background: '.$peel_color.';
-    					clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+    					clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    					-webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%); }
 					.corner-peel-'.$placement_id.'.corner-bottomright:before {
 						background: '.$peel_color.';
-    					clip-path: polygon(0 0, 100% 0, 0 100%); }
+    					clip-path: polygon(0 0, 100% 0, 0 100%); 
+    					-webkit-clip-path: polygon(0 0, 100% 0, 0 100%); }
 					.corner-peel-'.$placement_id.'.corner-bottomleft:before {
 						background: '.$peel_color.';
-    					clip-path: polygon(0 0, 100% 0, 100% 100%); }
+    					clip-path: polygon(0 0, 100% 0, 100% 100%); 
+    					-webkit-clip-path: polygon(0 0, 100% 0, 100% 100%); }
 					}
 				  </style>';
 
