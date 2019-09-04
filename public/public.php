@@ -232,7 +232,7 @@ class Advanced_Ads_Corner {
 					.corner-peel-'.$placement_id.'::before {
 					  width: '.$start_width.'px;
 				  	  height: '.$start_height.'px; }
-					.corner-peel-'.$placement_id.':hover {
+					.corner-peel-'.$placement_id.':hover{
 					  width: '.$full_width.'px;
 				  	  height: '.$full_height.'px; }
 					.corner-peel-'.$placement_id.':hover + .corner-shadow {
@@ -242,21 +242,29 @@ class Advanced_Ads_Corner {
 					  width: '.$full_width.'px;
 				  	  height: '.$full_height.'px; }
 				  	.corner-peel-'.$placement_id.'.corner-topright:before {
-						background: '.$peel_color.';
-    					clip-path: polygon(0 0, 100% 100%, 0 100%);
-    					-webkit-clip-path: polygon(0 0, 100% 100%, 0 100%); }
+				  	  border-style: solid;
+					  border-width: '.$start_height.'px 0 0 '.$start_width.'px;
+					  border-color: transparent transparent transparent '.$peel_color.'; }
+				  	.corner-peel-'.$placement_id.'.corner-topright:hover:before {
+					  border-width: '.$full_height.'px 0 0 '.$full_width.'px; }
 					.corner-peel-'.$placement_id.'.corner-topleft:before {
-						background: '.$peel_color.';
-    					clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    					-webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+				  	  border-style: solid;
+					  border-width: 0 0 '.$start_height.'px '.$start_width.'px;
+					  border-color: transparent transparent '.$peel_color.' transparent; }
+				  	.corner-peel-'.$placement_id.'.corner-topleft:hover:before {
+					  border-width: 0 0 '.$full_height.'px '.$full_width.'px; }
 					.corner-peel-'.$placement_id.'.corner-bottomright:before {
-						background: '.$peel_color.';
-    					clip-path: polygon(0 0, 100% 0, 0 100%); 
-    					-webkit-clip-path: polygon(0 0, 100% 0, 0 100%); }
+				  	  border-style: solid;
+					  border-width: '.$start_height.'px '.$start_width.'px 0 0;
+					  border-color: '.$peel_color.' transparent transparent transparent; }
+				  	.corner-peel-'.$placement_id.'.corner-bottomright:hover:before {
+					  border-width: '.$full_height.'px '.$full_width.'px 0 0; }
 					.corner-peel-'.$placement_id.'.corner-bottomleft:before {
-						background: '.$peel_color.';
-    					clip-path: polygon(0 0, 100% 0, 100% 100%); 
-    					-webkit-clip-path: polygon(0 0, 100% 0, 100% 100%); }
+				  	  border-style: solid;
+					  border-width: 0 '.$start_width.'px '.$start_height.'px 0;
+					  border-color: transparent '.$peel_color.' transparent transparent; }
+				  	.corner-peel-'.$placement_id.'.corner-bottomleft:hover:before {
+					  border-width: 0 '.$full_width.'px '.$full_height.'px 0; }
 					}
 				  </style>';
 
