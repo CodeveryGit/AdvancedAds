@@ -44,7 +44,7 @@ class Advanced_Ads_Corner {
 		// add wrapper options, group
 		add_filter( 'advanced-ads-output-wrapper-options-group', array( $this, 'add_wrapper_options_group' ), 10, 2 );
 		// check if current placement can be displayed at all (after Sticky Ad plugin)
-		add_filter( 'advanced-ads-can-display-placement', array( $this, 'placement_can_display' ), 11, 2 );
+		add_filter( 'advanced-ads-can-display-placement', array( $this, 'placement_can_display' ), 13, 2 );
 	}
 
 	/**
