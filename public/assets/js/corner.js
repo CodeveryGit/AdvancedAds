@@ -31,7 +31,7 @@ if ( ! Advanced_Ads_Corner_cache_busting ) {
                 advads_corner_check_item_conditions(banner_id);
             }
 
-            var img = banner.find('a img'),
+            var img = banner.find('a img').length ? banner.find('a img') : banner.find('img'),
                 imgSrc = img.attr('src');
             if (imgSrc) {
                 banner.css({backgroundImage: 'url("'+imgSrc+'")'});
