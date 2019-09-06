@@ -161,7 +161,7 @@ class Advanced_Ads_Corner {
 
 			$options['class'][] = $corner_class . '-onload';
 
-			if ( $args['corner_placement']['how_to_show'] == 'rectangle' ) $options['class'][] = 'advads-corner-show-in-rectangle';
+			if ( isset($args['corner_placement']['how_to_show']) && $args['corner_placement']['how_to_show'] == 'rectangle' ) $options['class'][] = 'advads-corner-show-in-rectangle';
 
 			if ( isset($args['corner_placement']['close']['when_to']) && $args['corner_placement']['close']['when_to'] == 'opened' ) $options['class'][] = 'advads-corner-close-opened';
 			elseif ( isset($args['corner_placement']['close']['when_to']) && $args['corner_placement']['close']['when_to'] == 'clicked') $options['class'][] = 'advads-corner-close-clicked';
@@ -172,6 +172,7 @@ class Advanced_Ads_Corner {
 				$options['class'][] = 'is-sticky';
 				$options['data-position'][] = $args['corner_placement']['sticky']['assistant'];
 			}
+			else $args['corner_placement']['sticky']['assistant'] = 'topright';
 
 			$options['style']['display'] = 'none';
 			$options['style']['z-index'] = '9999';

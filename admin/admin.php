@@ -111,7 +111,7 @@ class Advanced_Ads_Corner_Admin {
 
 		switch ( $placement['type'] ) {
 			case 'corner' :
-			    
+
 				if( ! class_exists( 'Advanced_Ads_Admin_Options' ) ){
 					echo 'Please update to Advanced Ads 1.8';
 					return;
